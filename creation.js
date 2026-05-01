@@ -22,11 +22,20 @@ function create_new_task() {
 	const priority = new_priority.value;
 	const note = new_note.value;
 	const checklist = new_checklist.value.split("\n");
-	const project = new_select_project.value;
+	const projectTitle = new_select_project.value;
 
 	if (title === "") {
 		alert("Title cannot be empty");
 		return;
+	}
+
+	let selectedProject;
+	if (projectTitle.length > 0) {
+		selectedProject = allProjects.find((proj) => proj.title === projectTitle);
+		if (!selectedProject) {
+			alert("Selected project does not exist");
+			return;
+		}
 	}
 
 	const newTodo = new todo(
@@ -36,8 +45,10 @@ function create_new_task() {
 		priority,
 		note,
 		checklist,
-		project,
 	);
+	if (selectedProject) {
+		selectedProject.add(newTodo);
+	}
 	console.log(allTodos);
 	console.log(allProjects);
 }
@@ -74,3 +85,5 @@ function update_project_select() {
 
 add_task.addEventListener("click", create_new_task);
 add_project.addEventListener("click", create_new_project);
+
+export { create_new_task, create_new_project, update_project_select };

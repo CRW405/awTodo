@@ -10,6 +10,10 @@ class todo {
 		notes = "",
 		checklist = [],
 	) {
+		if (allTodos.includes(title)) {
+			console.log("error: todo with title " + title + " already exists");
+			return;
+		}
 		this.title = title;
 		this.desc = desc;
 		this.dueDate = dueDate;
@@ -20,12 +24,48 @@ class todo {
 	}
 
 	del() {
-		allTodos.splice(allTodos.indexOf(this), 1);
+		const index = allTodos.indexOf(this);
+		if (index === -1) {
+			return;
+		}
+		allTodos.splice(index, 1);
+	}
+
+	edit(
+		title = null,
+		desc = null,
+		dueDate = null,
+		priority = null,
+		notes = null,
+		checklist = null,
+	) {
+		if (title !== null) {
+			this.title = title;
+		}
+		if (desc !== null) {
+			this.desc = desc;
+		}
+		if (dueDate !== null) {
+			this.dueDate = dueDate;
+		}
+		if (priority !== null) {
+			this.priority = priority;
+		}
+		if (notes !== null) {
+			this.note = notes;
+		}
+		if (checklist !== null) {
+			this.checklist = checklist;
+		}
 	}
 }
 
 class project {
-	constructor(title, todoArr) {
+	constructor(title, todoArr = []) {
+		if (allProjects.includes(title)) {
+			console.log("error: project with title " + title + " already exists");
+			return;
+		}
 		this.title = title;
 		this.todoArr = todoArr;
 		allProjects.push(this);
@@ -36,7 +76,11 @@ class project {
 	}
 
 	remove(todo) {
-		this.todoArr.splice(this.todoArr.indexOf(todo), 1);
+		const index = this.todoArr.indexOf(todo);
+		if (index === -1) {
+			return;
+		}
+		this.todoArr.splice(index, 1);
 	}
 
 	del() {

@@ -1,6 +1,0 @@
-- completion
-- priority setting
-- view
-- expand to see / edit details
-- delete
-- local storage
